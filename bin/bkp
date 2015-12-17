@@ -1,0 +1,20 @@
+#!/bin/bash
+
+for f in $*
+do
+  out=$f.bkp
+  last=$(ls -1 "${out}"* 2> /dev/null | tail -n1)
+  if [ -n "${last}" ]
+  then
+    if [ "${last}" == "${out}" ]
+    then
+      out=${out}.1
+    else
+      n=${last##${out}.}
+      ((n=n+1))
+      out=${out}.${n}
+    fi
+  fi 
+  
+  cp $f ${out}
+done

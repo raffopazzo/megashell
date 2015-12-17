@@ -1,0 +1,12 @@
+#!/bin/bash
+
+file=/etc/hosts
+regex="^[^#]+[[:space:]]+$1[[:space:]]*\$"
+line="$2	$1"
+
+grep -E ${regex} ${file} &> /dev/null
+if [ $? -eq 0 ]; then
+  sed -i '' -E "s/${regex}/${line}/" ${file}
+else
+  echo "${line}" >> ${file}
+fi

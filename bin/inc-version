@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# RELEASE_TYPE selects which type of version this release number should be for.
+# It can be both specified from command line argument or inherited as env-var.
+# The former takes precedence.
+if [ -n "$1" ]; then RELEASE_TYPE=$1; fi
+
+function help_and_exit() {
+  echo "$(basename $0) [major|minor|build]"
+  exit
+}
+
+# There have been changes since the last tag, so we start from that tag
+OLD_VERSION=$(git describe --tags --abbrev=0)
+
+MAJOR=$(echo ${OLD_VERSION} | cut -d. -f1)
+MINOR=$(echo ${OLD_VERSION} | cut -d. -f2)
+BUILD=$(echo ${OLD_VERSION} | cut -d. -f3)
+
+# Check whether there are changes since last tag.
+# If there aren't then git describe will be equal to OLD_VERSION
+if [ "$(git describe --tags)" == "${OLD_VERSION}" ]
+then
+  # If there haven't been new changes, then the version number changes
+  # only if it hasn't just changed, i.e. the following digit is 0
+  case ${RELEASE_TYPE} in
+  major)
+    if [ ${MINOR} -eq 0 ]; then RELEASE_TYPE=old; fi
+    ;;
+  minor)
+    if [ ${BUILD} -eq 0 ]; then RELEASE_TYPE=old; fi
+    ;;
+   *)
+    # For both build and experimental versions, we may need to change the
+    # version number only if there are unstaged changes, otherwise we
+    # still apply the old version number because nothing changed
+    if [ $(git status -s 2>/dev/null | wc -l) -eq 0 ]
+    then
+      RELEASE_TYPE=old
+    fi
+    ;;
+  esac
+fi
+
+case ${RELEASE_TYPE} in
+old)
+  ;;
+major)
+  (( MAJOR = 1 + MAJOR ))
+  MINOR=0
+  BUILD=0
+  ;;
+minor)
+  (( MINOR = 1 + MINOR ))
+  BUILD=0
+  ;;
+build)
+  (( BUILD = 1 + BUILD ))
+  ;;
+*)
+  # If we got an argument we don't recognise, print the help and exit
+  [ -n "${RELEASE_TYPE}" ] && help_and_exit
+
+  # Otherwise we want an experimantal version number
+  EXP=-dev-$(git log -1 --format=%h 2>/dev/null)
+  if [ $(git status -s 2>/dev/null | wc -l) -ne 0 ]
+  then
+    EXP=${EXP}-$(date +%Y%m%d%H%M%S)
+  fi
+esac
+
+echo ${MAJOR}.${MINOR}.${BUILD}${EXP}

@@ -1,0 +1,45 @@
+# vim: set syntax=make;
+PROJECT?=$(notdir $(CURDIR))
+
+HOST?=xps
+HOST_HOME?=/home/rarossi
+HOST_BUILD_DIR?=$(HOST_HOME)/Projects/$(PROJECT)
+HOST_BUILD_CMD=echo HOST_BUILD_CMD not set && false
+
+RSYNC_DELETE?=delete
+
+RSYNC_OPTS=
+RSYNC_OPTS+=-rlptv
+RSYNC_OPTS+=--exclude=".DS_Store"
+RSYNC_OPTS+=--exclude="rmake"
+RSYNC_OPTS+=--exclude="$(PROJECT).vpj"
+RSYNC_OPTS+=--exclude="$(PROJECT).vpw"
+RSYNC_OPTS+=--exclude="$(PROJECT).vpwhistu"
+RSYNC_OPTS+=--exclude="$(PROJECT).vtg"
+ifeq (delete,$(findstring delete,$(RSYNC_DELETE)))
+RSYNC_OPTS+=--delete
+endif
+ifeq (git,$(findstring git,$(RSYNC_EXCLUDE_REPO)))
+RSYNC_OPTS+=--exclude="*/.git/*"
+endif
+ifeq (hg,$(findstring hg,$(RSYNC_EXCLUDE_REPO)))
+RSYNC_OPTS+=--exclude="*/.hg/*"
+endif
+
+RSYNC_OPTS+=$(foreach e,$(RSYNC_EXCLUDES),--exclude="$e")
+
+SSH?=ssh -tq $(HOST)
+
+.PHONY: help
+.DEFAULT_GOAL?=help
+help:
+	@echo Missing target name. Available targets: $(AVAILABLE_BUILD_TARGETS)
+	@false
+
+.PHONY: $(AVAILABLE_BUILD_TARGETS)
+$(AVAILABLE_BUILD_TARGETS): rsync
+	$(SSH) 'cd $(HOST_BUILD_DIR) && $(HOST_BUILD_CMD)'
+
+.PHONY: rsync
+rsync:
+	rsync $(RSYNC_OPTS) $(HOME)/Projects/$(PROJECT) $(HOST):Projects

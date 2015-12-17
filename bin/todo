@@ -1,0 +1,64 @@
+#!/bin/bash
+
+TODO_FILE=${HOME}/.todo
+while [ $# -gt 0 ]
+do
+	case $1 in
+		--clear)
+			DO_CLEAR=1
+			;;
+		-d|--done)
+			shift
+			DO_DONE=$1
+			;;
+		-d*)
+			DO_DONE=${1#-d}
+			;;
+		--done=*)
+			DO_DONE=${1#--done=}
+			;;
+		--file)
+			shift
+			TODO_FILE=$1
+			;;
+		--file=*)
+			TODO_FILE=${1#--file=}
+			;;
+		--)
+			shift
+			break
+			;;
+		-*)
+			echo Unknown option $1
+			exit 1
+			;;
+		*)
+			break
+			;;
+	esac
+	shift
+done
+
+# Clear all todo entries
+if [ -n "${DO_CLEAR}" ]
+then
+	echo -n > ${TODO_FILE}
+	exit 0
+fi
+
+# Delete done entries
+if [ -n "${DO_DONE}" ]
+then
+	sed -i '' ${DO_DONE}d ${TODO_FILE}
+fi
+
+if [ $# -gt 0 ]
+then
+	# Write a new todo entry
+	echo $* >> ${TODO_FILE}
+	cat -n ${TODO_FILE} | tail -n 1
+else
+	# Print the todo list and make sure to return with a
+	# success code if todo file doesn't exist
+	[ -f ${TODO_FILE} ] && cat -n ${TODO_FILE} || true
+fi

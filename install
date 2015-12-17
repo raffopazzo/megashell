@@ -1,0 +1,17 @@
+#!/bin/bash
+
+BASHRC=${HOME}/.bashrc
+grep "### Megashell" ${BASHRC} -q > /dev/null || cat >> ${HOME}/.bashrc << END
+### Megashell
+MEGASHELL_PATH=$(pwd)
+source \${MEGASHELL_PATH}/bashrc
+END
+
+# TODO: check whether a customvimrc can be loaded
+VIMRC=${HOME}/.vimrc
+if [ -f ${VIMRC} ]
+then
+  echo "${VIMRC} already exists. Check you don't need it"
+else
+  ln -s $(pwd)/vimrc ${VIMRC}
+fi

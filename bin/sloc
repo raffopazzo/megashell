@@ -1,0 +1,7 @@
+#!/bin/bash
+
+for i in $*
+do
+	echo -n $i
+	find $i -type f -print0 | xargs -0 wc -l | tail -n 1
+done
