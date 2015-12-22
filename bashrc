@@ -9,7 +9,7 @@ alias h="history 10"
 alias graph="git log --oneline --graph --decorate --date-order --branches="
 alias pygrep="srcgrep --extensions=py"
 alias cppgrep='srcgrep --extensions="h c cpp"'
-which -s apt-get
+which apt-get >/dev/null
 if [ $? -eq 0 ]
 then
   alias get='sudo apt-get install --yes'
