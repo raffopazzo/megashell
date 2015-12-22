@@ -1,4 +1,4 @@
-# vim: set syntax=make;
+# vim: set syntax=make:
 PROJECT?=$(notdir $(CURDIR))
 
 HOST?=xps
