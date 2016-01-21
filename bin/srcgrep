@@ -8,9 +8,9 @@ else
 die missing extensions. Are you calling $0 manually?
 fi
 
-pattern=$1
+pattern='"'$1'"'
 shift
-path=${1-.}
+path='"'${1-.}'"'
 shift
 extra=$*
 
