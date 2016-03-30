@@ -1,0 +1,17 @@
+#!/bin/bash
+
+RMAKE_FILE=rmake
+
+cat > ${RMAKE_FILE} << END
+#!/usr/bin/make -f
+
+# AVAILABLE_BUILD_TARGETS:=example
+
+# RSYNC_DELETE:=false
+# RSYNC_EXCLUDE_REPO?=git
+
+# example: HOST_BUILD_CMD=make \$@
+
+include \$(RMAKE)/lib/rmake
+END
+chmod +x ${RMAKE_FILE}

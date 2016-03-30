@@ -6,7 +6,7 @@ HOST_HOME?=/home/rarossi
 HOST_BUILD_DIR?=$(HOST_HOME)/Projects/$(PROJECT)
 HOST_BUILD_CMD=echo HOST_BUILD_CMD not set && false
 
-RSYNC_DELETE?=delete
+RSYNC_DELETE?=false
 
 RSYNC_OPTS=
 RSYNC_OPTS+=-rlptv

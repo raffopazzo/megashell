@@ -1,4 +1,5 @@
 export PATH=${PATH}:${MEGASHELL_PATH}/bin
+export RMAKE=${MEGASHELL_PATH}
 
 # Bash settings
 set -o vi
