@@ -1,0 +1,3 @@
+#!/bin/bash
+cmd='grep --color=always -E "'$1'|$"'
+bash -c "${cmd}"
