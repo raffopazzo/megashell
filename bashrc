@@ -2,6 +2,7 @@ export PATH=${PATH}:${MEGASHELL_PATH}/bin
 export RMAKE=${MEGASHELL_PATH}
 
 # Bash settings
+export EDITOR=vim
 set -o vi
 
 # Aliases
