@@ -1,4 +1,8 @@
+"Megashell
 syntax on
+
+:colorscheme megashell
+set colorcolumn=80
 set modeline
 set modelines=5
 set background=dark

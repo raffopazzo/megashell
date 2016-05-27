@@ -8,10 +8,22 @@ source \${MEGASHELL_PATH}/bashrc
 END
 
 # TODO: check whether a customvimrc can be loaded
+
+function install_vimrc() {
+  ln -sf $(pwd)/vim/colors ${VIMDIR}/colors
+  ln -sf $(pwd)/vim/vimrc ${VIMRC}
+}
+VIMDIR=${HOME}/.vim
 VIMRC=${HOME}/.vimrc
 if [ -f ${VIMRC} ]
 then
-  echo "${VIMRC} already exists. Check you don't need it"
+  head -n 1 ${VIMRC} | grep -q '^"Megashell$'
+  if [ $? -ne 0 ]
+  then
+    echo "${VIMRC} already exists. Check you don't need it"
+  else
+    install_vimrc
+  fi
 else
-  ln -s $(pwd)/vimrc ${VIMRC}
+  install_vimrc
 fi
