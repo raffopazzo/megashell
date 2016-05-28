@@ -1,29 +1,36 @@
 #!/bin/bash
 
-BASHRC=${HOME}/.bashrc
-grep "### Megashell" ${BASHRC} -q > /dev/null || cat >> ${HOME}/.bashrc << END
+function install_bashrc() {
+  BASHRC=${HOME}/.bashrc
+  grep "### Megashell" ${BASHRC} -q > /dev/null || cat >> ${BASHRC} << END
 ### Megashell
 MEGASHELL_PATH=$(pwd)
+MEGASHELL_HOSTNAME="${MEGASHELL_HOSTNAME-\h:}"
 source \${MEGASHELL_PATH}/bashrc
 END
-
-# TODO: check whether a customvimrc can be loaded
+}
 
 function install_vimrc() {
-  ln -sf $(pwd)/vim/colors ${VIMDIR}/colors
-  ln -sf $(pwd)/vim/vimrc ${VIMRC}
-}
-VIMDIR=${HOME}/.vim
-VIMRC=${HOME}/.vimrc
-if [ -f ${VIMRC} ]
-then
-  head -n 1 ${VIMRC} | grep -q '^"Megashell$'
-  if [ $? -ne 0 ]
+  VIMDIR=${HOME}/.vim
+  VIMRC=${HOME}/.vimrc
+  # check we can safely use our vimrc
+  if [ ! -f ${VIMRC} ] || head -n 1 ${VIMRC} | grep -q '^"Megashell$'
   then
-    echo "${VIMRC} already exists. Check you don't need it"
+    echo linking vim stuff
+    ln -sf $(pwd)/vim/colors ${VIMDIR}/colors
+    ln -sf $(pwd)/vim/vimrc ${VIMRC}
   else
-    install_vimrc
+    echo "Cannot install vimrc because it seems you're using your own"
   fi
-else
-  install_vimrc
-fi
+}
+
+while [ $# -gt 0 ]
+do
+case $1 in
+  --no-hostname) MEGASHELL_HOSTNAME="" ;;
+esac
+shift
+done
+
+install_bashrc
+install_vimrc
