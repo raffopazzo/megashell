@@ -4,6 +4,7 @@ export RMAKE=${MEGASHELL_PATH}
 # Bash settings
 export EDITOR=vim
 set -o vi
+PS1="\! [\A] ${MEGASHELL_HOSTNAME}\w> "
 
 # Aliases
 alias c="clear"
