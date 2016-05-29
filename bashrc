@@ -26,7 +26,7 @@ function __git_status() {
 # Bash settings
 export EDITOR=vim
 set -o vi
-PS1="\! [\A] ${MEGASHELL_HOSTNAME}\w:\$(__git_branch)\$(__git_status)> "
+PS1="\!) \A ${MEGASHELL_HOSTNAME}\w:\$(__git_branch)\$(__git_status)> "
 
 # Aliases
 alias c="clear"
