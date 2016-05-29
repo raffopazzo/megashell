@@ -10,14 +10,26 @@ source \${MEGASHELL_PATH}/bashrc
 END
 }
 
+function __ln() {
+  if [ -h $2 ]
+  then
+    true
+  elif [ ! -a $2 ]
+  then
+    ln -s $1 $2
+  else
+    die Cannot override $2, which is not a link
+  fi
+}
+
 function install_vimrc() {
   VIMDIR=${HOME}/.vim
   VIMRC=${HOME}/.vimrc
   # check we can safely use our vimrc
   if [ ! -f ${VIMRC} ] || head -n 1 ${VIMRC} | grep -q '^"Megashell$'
   then
-    ln -sf $(pwd)/vim/colors ${VIMDIR}/colors
-    ln -sf $(pwd)/vim/vimrc ${VIMRC}
+    __ln $(pwd)/vim/colors ${VIMDIR}/colors
+    __ln $(pwd)/vim/vimrc ${VIMRC}
   else
     echo "Cannot install vimrc because it seems you're using your own"
   fi
