@@ -8,6 +8,8 @@ set modelines=5
 set background=dark
 set relativenumber
 set autoindent
+set incsearch
+set shiftround
 
 setlocal expandtab
 setlocal shiftwidth=4
