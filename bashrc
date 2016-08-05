@@ -8,6 +8,11 @@ function die() {
 }
 export -f die
 
+# serach on google
+function g() {
+  open "https://www.google.it/search?q=$*"
+}
+
 # execute git command and discard stderr
 function __git() {
   git $* 2>/dev/null
