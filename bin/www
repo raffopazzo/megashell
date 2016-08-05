@@ -1,0 +1,22 @@
+#!/bin/bash
+
+BOOKMARKS=~/.www
+
+function open_link() {
+  open "$1"
+}
+
+while [ $# -gt 0 ]
+do
+  case $1 in
+  -b)
+    shift
+    echo "$1|$2" >> ${BOOKMARKS}
+    exit 0
+    ;;
+  *)
+    open_link "$(grep -E "^$1\|" ${BOOKMARKS} | cut -d\| -f2)"
+    exit 0
+    ;;
+  esac
+done
