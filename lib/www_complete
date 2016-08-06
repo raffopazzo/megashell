@@ -1,0 +1,8 @@
+#!/bin/bash
+
+function _www_complete() {
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  COMPREPLY=($(compgen -W "$(cut -d\| -f1 ~/.www)" -- ${cur}))
+}
+
+complete -F _www_complete www
