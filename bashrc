@@ -2,7 +2,7 @@ export PATH=${PATH}:${MEGASHELL_PATH}/bin
 export RMAKE=${MEGASHELL_PATH}
 
 # Bash completion
-source ${MEGASHELL_PATH}/lib/www_complete
+source ${MEGASHELL_PATH}/bash_completion/www
 
 # Functions
 function die() {
