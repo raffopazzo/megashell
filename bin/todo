@@ -7,6 +7,9 @@ do
 		--clear)
 			DO_CLEAR=1
 			;;
+		--edit)
+			DO_EDIT=1
+			;;
 		-d|--done)
 			shift
 			DO_DONE=$1
@@ -44,6 +47,13 @@ if [ -n "${DO_CLEAR}" ]
 then
 	echo -n > ${TODO_FILE}
 	exit 0
+fi
+
+# Edit todo file
+if [ -n "${DO_EDIT}" ]
+then
+	${EDITOR} ${TODO_FILE}
+	exit
 fi
 
 # Delete done entries
