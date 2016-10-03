@@ -45,3 +45,4 @@ done
 
 install_bashrc
 install_vimrc
+__ln $(pwd)/tmux.conf ${HOME}/.tmux.conf
