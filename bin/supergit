@@ -1,0 +1,45 @@
+#!/bin/bash
+
+GIT_HOME=${GIT_HOME:-.}
+
+function _repos()
+{
+  for d in $(find ${GIT_HOME} -maxdepth 1 -type d)
+  do
+    inside $d git status -s > /dev/null 2>&1 && basename $d
+  done
+}
+
+function _status()
+{
+    local all_fine=1
+    for r in $(_repos)
+    do
+        if !  inside ${GIT_HOME}/$r '[ $(git status -s | wc -l) -eq 0 ]' > /dev/null
+        then
+            echo $r is dirty
+            all_fine=0
+        fi
+    done
+    [ ${all_fine} -eq 1 ] && echo all repos are clean
+}
+
+case "$1" in
+status)
+    _status
+    ;;
+repos)
+    _repos
+    ;;
+*)
+    if _repos | grep -qwE "$(basename $1)"
+    then
+        d=${GIT_HOME}/$(basename $1)
+        shift 1
+        inside $d git "$*"
+    else
+        echo command not found: $1
+        exit 1
+    fi
+    ;;
+esac
