@@ -2,12 +2,19 @@
 
 function _supergit_complete() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
-  if [ "${COMP_WORDS[1]}" == "" ]
+  suggestions="$(supergit repos)"
+  first="${COMP_WORDS[1]}"
+  second="${COMP_WORDS[2]}"
+  if [ -z "${first}" ] || [ -z "${second}" ]
   then
-    COMPREPLY=($(compgen -W "status repos $(supergit repos)" -- ${cur}))
-  else
-    COMPREPLY=($(compgen -W "$(supergit repos)" -- ${cur}))
+    case ${first} in
+    status|repos)
+        ;;
+    *)
+        suggestions="${suggestions} status repos"
+    esac
   fi
+  COMPREPLY=($(compgen -W "${suggestions}" -- ${cur}))
 }
 
 complete -F _supergit_complete supergit
