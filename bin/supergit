@@ -4,9 +4,9 @@ GIT_HOME=${GIT_HOME:-.}
 
 function _repos()
 {
-  for d in $(find ${GIT_HOME} -maxdepth 1 -type d)
+  for d in $(find ${GIT_HOME} -maxdepth 1 -type d -not -name .)
   do
-    inside $d git status -s > /dev/null 2>&1 && basename $d
+    [ -d $d/.git ] && basename $d
   done
 }
 
