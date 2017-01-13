@@ -39,7 +39,7 @@ PS1="\!) \A ${MEGASHELL_HOSTNAME}\w:\$(__git_branch)\$(__git_status)> "
 # Aliases
 alias c="clear"
 alias h="history 10"
-alias graph="git log --oneline --graph --decorate --date-order"
+alias graph="git log --oneline --graph --decorate --date-order --all"
 alias pygrep='grep --color -rn --include="*.py"'
 alias cppgrep='grep --color -rn --include="*.h" --include="*.c" --include="*.cpp" --include="*.hpp" --include="*.cxx" --include="*.hxx"'
 alias javagrep='grep --color -rn --include="*.java"'
