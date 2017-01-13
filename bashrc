@@ -43,6 +43,6 @@ alias graph="git log --oneline --graph --decorate --date-order"
 alias pygrep='grep --color -rn --include="*.py"'
 alias cppgrep='grep --color -rn --include="*.h" --include="*.c" --include="*.cpp" --include="*.hpp" --include="*.cxx" --include="*.hxx"'
 alias javagrep='grep --color -rn --include="*.java"'
-which apt-get >/dev/null \
+which apt-get > /dev/null 2>&1 \
   && alias get='sudo apt-get install --yes' \
   && alias search='apt-cache search'
