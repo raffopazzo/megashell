@@ -1,0 +1,13 @@
+#!/bin/bash
+
+function _supergit_complete() {
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  if [ "${COMP_WORDS[1]}" == "" ]
+  then
+    COMPREPLY=($(compgen -W "status repos $(supergit repos)" -- ${cur}))
+  else
+    COMPREPLY=($(compgen -W "$(supergit repos)" -- ${cur}))
+  fi
+}
+
+complete -F _supergit_complete supergit
