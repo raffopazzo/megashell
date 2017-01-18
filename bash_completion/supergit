@@ -8,10 +8,11 @@ function _supergit_complete() {
   if [ -z "${first}" ] || [ -z "${second}" ]
   then
     case ${first} in
-    status|repos)
+    branch|repos|status)
         ;;
     *)
-        suggestions="${suggestions} status repos"
+        suggestions="${suggestions} branch repos status"
+        ;;
     esac
   fi
   COMPREPLY=($(compgen -W "${suggestions}" -- ${cur}))
