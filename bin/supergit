@@ -10,21 +10,33 @@ function _repos()
   done
 }
 
+function _branch()
+{
+  for r in $(_repos)
+  do
+    echo $r
+    inside ${GIT_HOME}/$r git branch --color=always | sed 's/^/  /'
+  done
+}
+
 function _status()
 {
-    local all_fine=1
-    for r in $(_repos)
-    do
-        if !  inside ${GIT_HOME}/$r '[ $(git status -s | wc -l) -eq 0 ]' > /dev/null
-        then
-            echo $r is dirty
-            all_fine=0
-        fi
-    done
-    [ ${all_fine} -eq 1 ] && echo all repos are clean
+  local all_fine=1
+  for r in $(_repos)
+  do
+    if !  inside ${GIT_HOME}/$r '[ $(git status -s | wc -l) -eq 0 ]' > /dev/null
+    then
+      echo $r is dirty
+      all_fine=0
+    fi
+  done
+  [ ${all_fine} -eq 1 ] && echo all repos are clean
 }
 
 case "$1" in
+branch)
+    _branch
+    ;;
 status)
     _status
     ;;
