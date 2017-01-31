@@ -2,20 +2,26 @@
 
 function _supergit_complete() {
   local cur="${COMP_WORDS[COMP_CWORD]}"
-  suggestions="$(supergit repos)"
-  first="${COMP_WORDS[1]}"
-  second="${COMP_WORDS[2]}"
-  if [ -z "${first}" ] || [ -z "${second}" ]
+  if [ ${COMP_CWORD} -eq 1 ]
   then
-    case ${first} in
-    branch|repos|status)
-        ;;
-    *)
-        suggestions="${suggestions} branch repos status"
-        ;;
-    esac
+    suggestions=($(supergit repos))
+    suggestions+=(branch repos status)
+    COMPREPLY=($(compgen -W "${suggestions[*]}" -- ${cur}))
+  elif supergit repos | grep -q ${COMP_WORDS[1]}
+  then
+    # If the first argument is a repo, delegate to git completion
+    _completion_loader git
+    git_fns=($(complete -p git 2>/dev/null | cut -dF -f 2))
+    if [ $? -eq 0 ]
+    then
+      repo=${COMP_WORDS[1]}
+      COMP_WORDS=(git "${COMP_WORDS[@]:2}")
+      ((COMP_CWORD--))
+      pushd ${GIT_HOME}/${repo} >/dev/null
+      ${git_fns[0]}
+      popd >/dev/null
+    fi
   fi
-  COMPREPLY=($(compgen -W "${suggestions}" -- ${cur}))
 }
 
 complete -F _supergit_complete supergit

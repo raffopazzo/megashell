@@ -7,7 +7,7 @@ function _repos()
   for d in $(find ${GIT_HOME} -maxdepth 1 -type d -not -name .)
   do
     [ -d $d/.git ] && basename $d
-  done
+  done | sort
 }
 
 function _branch()
