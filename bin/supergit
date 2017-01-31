@@ -48,7 +48,7 @@ repos)
     then
         d=${GIT_HOME}/$(basename $1)
         shift 1
-        inside $d git "$*"
+        inside $d git "$@"
     else
         echo command not found: $1
         exit 1
