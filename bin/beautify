@@ -1,0 +1,60 @@
+#!/usr/bin/env python
+
+import fileinput
+import sys
+
+class Printer:
+    def __init__(self):
+        self._indentation = 0
+        self._s = ""
+
+    def __call__(self, a):
+        self._s += a
+
+    def __str__(self):
+        return self._s
+
+    def indent(self):
+        self._indentation += 1
+        self.newline()
+
+    def unindent(self):
+        self._indentation -= 1
+        self.newline()
+
+    def newline(self):
+        self._s += '\n'
+        self._s += "    " * self._indentation
+
+def beautify_template(s):
+  p = Printer()
+  skip_leading_space = True
+  for c in s:
+    if c == ' ' and skip_leading_space:
+      continue
+    elif c in "<[{(":
+        p(c)
+        p.indent()
+    elif c in ')}]>':
+        p.unindent()
+        p(c)
+    elif c in ",;":
+        p(c)
+        skip_leading_space = True
+        p.newline()
+        continue
+    else:
+        p(c)
+    skip_leading_space = False
+  return str(p)
+
+def main():
+    while True:
+        line = sys.stdin.readline()
+        if line:
+            print beautify_template(line)
+        else:
+            return
+
+if __name__ == "__main__":
+    main()
