@@ -1,5 +1,15 @@
 #!/bin/bash
 
+function help() {
+    echo "Syntax: $(basename $0) [options]:"
+    echo "Options:"
+    echo "  --help: print this help"
+    echo "  --clear: clear all todo entries"
+    echo "  --edit: edit the todo file manually"
+    echo "  --done=<N>|--done <N>|-d<N>|-d <N>: remove entry number N"
+    echo "  --file <todo_file>|--file=<todo_file>: specify a custom todo file"
+}
+
 TODO_FILE=${HOME}/.todo
 while [ $# -gt 0 ]
 do
@@ -27,12 +37,17 @@ do
 		--file=*)
 			TODO_FILE=${1#--file=}
 			;;
+		--help)
+			help
+			exit 0
+			;;
 		--)
 			shift
 			break
 			;;
 		-*)
 			echo Unknown option $1
+			help
 			exit 1
 			;;
 		*)
