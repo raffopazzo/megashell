@@ -24,7 +24,7 @@ function _status()
   local all_fine=1
   for r in $(_repos)
   do
-    if !  inside ${GIT_HOME}/$r '[ $(git status -s | wc -l) -eq 0 ]' > /dev/null
+    if [ $(inside ${GIT_HOME}/$r git status -s | wc -l) -ne 0 ]
     then
       echo $r is dirty
       all_fine=0
