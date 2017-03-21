@@ -41,7 +41,7 @@ alias c="clear"
 alias h="history 10"
 alias graph="git log --oneline --graph --decorate --date-order --all"
 alias pygrep='grep --color -rn --include="*.py"'
-alias cppgrep='grep --color -rn --include="*.h" --include="*.c" --include="*.cpp" --include="*.hpp" --include="*.cxx" --include="*.hxx"'
+alias cppgrep='grep --color -rn --include="*.h" --include="*.c" --include="*.cpp" --include="*.hpp" --include="*.cxx" --include="*.hxx" --include="*.ipp" --include="*.inl"'
 alias javagrep='grep --color -rn --include="*.java"'
 which apt-get > /dev/null 2>&1 \
   && alias get='sudo apt-get install --yes' \
