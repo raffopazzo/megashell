@@ -1,6 +1,11 @@
 " Vertical column
 hi ColorColumn ctermbg=DarkGrey
 
+" Tabs
+hi TabLine cterm=reverse
+hi TabLineFill ctermbg=Grey ctermfg=Grey
+hi TabLineSel cterm=reverse
+
 " Special characters
 set list
 set listchars=eol:$,tab:>-,trail:~
