@@ -2,9 +2,9 @@
 hi ColorColumn ctermbg=DarkGrey
 
 " Tabs
-hi TabLine cterm=reverse
+hi TabLine cterm=bold
 hi TabLineFill ctermbg=Grey ctermfg=Grey
-hi TabLineSel cterm=reverse
+hi TabLineSel cterm=bold,underline
 
 " Special characters
 set list
