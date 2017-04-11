@@ -74,7 +74,7 @@ fi
 # Delete done entries
 if [ -n "${DO_DONE}" ]
 then
-	sed -i~ ${DO_DONE}d ${TODO_FILE}
+	sed -i~ ${DO_DONE}d ${TODO_FILE} && rm ${TODO_FILE}~
 fi
 
 if [ $# -gt 0 ]
