@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+  die "Missing field number"
+fi
+
+fields=("\$$1")
+shift
+while [ $# -gt 0 ]
+do
+  fields+=(", \$$1")
+  shift
+done
+
+awk "{print ${fields[*]}}"
