@@ -1,0 +1,32 @@
+Custom key mappings:
+# Insert your preferred key mappings here.
+map <a-j> nextTab
+map <a-k> previousTab
+map <c-v> passNextKey
+
+Custom search engines:
+w: http://www.wikipedia.org/w/index.php?title=Special:Search&search=%s Wikipedia
+enit: http://www.wordreference.com/enit/%s
+iten: http://www.wordreference.com/iten/%s
+it: http://www.treccani.it/vocabolario/%s
+cpp: http://en.cppreference.com/mwiki/index.php?search=%s
+boost: https://cse.google.com/cse?cx=011577717147771266991:jigzgqluebe&q=%s
+cmake: https://cmake.org/cmake/help/v3.6/search.html?q=%s&check_keywords=yes&area=default
+git: http://git.mavensecurities.com/search?utf8=%E2%9C%93&q=%s&type=Code
+
+# More examples.
+#
+# (Vimium supports search completion Wikipedia, as
+# above, and for these.)
+#
+# g: http://www.google.com/search?q=%s Google
+# l: http://www.google.com/search?q=%s&btnI I'm feeling lucky...
+# y: http://www.youtube.com/results?search_query=%s Youtube
+# gm: https://www.google.com/maps?q=%s Google maps
+# b: https://www.bing.com/search?q=%s Bing
+# d: https://duckduckgo.com/?q=%s DuckDuckGo
+# az: http://www.amazon.com/s/?field-keywords=%s Amazon
+# qw: https://www.qwant.com/?q=%s Qwant
+
+Scroll step size: 60px
+Characters used for link hints: asdjkl
