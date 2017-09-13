@@ -30,3 +30,5 @@ git: http://git.mavensecurities.com/search?utf8=%E2%9C%93&q=%s&type=Code
 
 Scroll step size: 60px
 Characters used for link hints: asdjkl
+Use smooth scrolling: Y
+Don't let pages steal focus on load: Y
