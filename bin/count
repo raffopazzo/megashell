@@ -1,0 +1,12 @@
+#!/usr/bin/python
+
+import sys
+from collections import defaultdict
+
+freq = defaultdict(int)
+
+for line in sys.stdin:
+    freq[line.strip()] += 1
+
+for k, v in sorted(freq.items()):
+  print k, v
