@@ -1,0 +1,5 @@
+#!/bin/bash
+
+s=$(eval "printf '=%.0s' {1..$((100 * $1 / $2))}")
+s="$(printf '[%-100s]' $s)"
+echo -ne "$s\r"
