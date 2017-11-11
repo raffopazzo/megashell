@@ -1,12 +1,18 @@
 #!/usr/bin/python
 
 import sys
+from math import ceil, log10
 from collections import defaultdict
 
 freq = defaultdict(int)
 
+total=0
 for line in sys.stdin:
-    freq[line.strip()] += 1
+    line=line.strip()
+    if line:
+        freq[line] += 1
+        total += 1
 
 for k, v in sorted(freq.items()):
-  print k, v
+  max_digits = int(ceil(log10(total)))
+  print "[%5.2f%%] %{max_digits}d: %s".format(max_digits=max_digits) % (v*100.0/total, v, k)
