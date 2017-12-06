@@ -1,5 +1,29 @@
 #!/bin/bash
 
-s=$(eval "printf '=%.0s' {1..$((100 * $1 / $2))}")
-s="$(printf '[%-100s]' $s)"
-echo -ne "$s\r"
+# Usage example:
+# for i in $(seq 10)
+# do
+#   printf '\r%s' "$(progressbar $i 10)"
+#   sleep 1 # do your stuff
+# done
+# echo # print new line for clean prompt
+
+n=$(($(tput cols) - 3))
+k=$(($n * $1 / $2))
+o=0
+if [ $k -gt $n ]
+then
+  o=$((k-n))
+  k=$((n-o))
+fi
+printf '['
+[ $k -gt 0 ] && printf '#%.0s' $(seq $k)
+if [ $o -gt 0 ]
+then
+  printf ']'
+  printf +%.0s $(seq $o)
+else
+  [ $k -lt $n ] && printf ' %.0s' $(seq $k $n)
+  printf ']'
+fi
+printf '\n'
