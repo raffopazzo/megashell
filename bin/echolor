@@ -1,0 +1,28 @@
+#!/bin/bash
+
+style=0
+
+while true
+do
+case $1 in
+  k|blk|black) color=30 && shift && break;;
+  r|red) color=31 && shift && break;;
+  g|grn|gree) color=32 && shift && break;;
+  y|ylw|yellow) color=33 && shift && break;;
+  b|blu|blue) color=34 && shift && break;;
+  p|purple) color=35 && shift && break;;
+  c|cyn|cyan) color=36 && shift && break;;
+  w|wht|white) color=37 && shift && break;;
+  -b|--bold) style=1 && shift;;
+  -u|--underline) style=4 && shift;;
+  --) shift && break;;
+  *) break;;
+esac
+done
+
+if [ -n "${color}" ]
+then
+  echo -e "\033[${style};${color}m$@\033[0m"
+else
+  echo "$@"
+fi
