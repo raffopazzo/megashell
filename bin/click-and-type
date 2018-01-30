@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+
+echo "Select the window to send text too"
+id=$(xdotool selectwindow)
+
+xdotool click --window $id 1
+xdotool type --window $id --file -
