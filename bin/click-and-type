@@ -1,4 +1,6 @@
 #!/bin/bash
+#
+# WARNING: sending shift+key (e.g. capital letters or symbol) may not work
 set -e
 
 echo "Select the window to send text too"
