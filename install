@@ -28,6 +28,7 @@ function install_vimrc() {
   # check we can safely use our vimrc
   if [ ! -f ${VIMRC} ] || head -n 1 ${VIMRC} | grep -q '^"Megashell$'
   then
+    mkdir -p ${VIMDIR}
     __ln $(pwd)/vim/colors ${VIMDIR}/colors
     __ln $(pwd)/vim/vimrc ${VIMRC}
   else
