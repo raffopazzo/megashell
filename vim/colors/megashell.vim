@@ -1,6 +1,7 @@
 hi Identifier ctermfg=darkyellow
 hi Include ctermfg=darkyellow
 hi Keyword ctermfg=yellow
+hi Number ctermfg=cyan
 hi String ctermfg=magenta
 
 " Vertical column and current line
