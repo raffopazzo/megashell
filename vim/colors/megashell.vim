@@ -1,5 +1,5 @@
 hi Identifier ctermfg=darkyellow
-hi Include ctermfg=darkyellow
+hi Include ctermfg=yellow
 hi Keyword ctermfg=yellow
 hi Number ctermfg=cyan
 hi String ctermfg=magenta
