@@ -1,5 +1,11 @@
-" Vertical column
+hi Identifier ctermfg=darkyellow
+hi Include ctermfg=darkyellow
+hi Keyword ctermfg=yellow
+hi String ctermfg=magenta
+
+" Vertical column and current line
 hi ColorColumn ctermbg=DarkGrey
+hi CursorLine  ctermbg=DarkGrey cterm=NONE
 
 " Tabs
 hi TabLine cterm=bold
