@@ -1,8 +1,10 @@
 "Megashell
+au BufReadPost buildlog set syntax=buildlog
 syntax on
 
 :colorscheme megashell
 set colorcolumn=80
+set cursorline
 set modeline
 set modelines=5
 set background=dark
