@@ -27,26 +27,26 @@ class Printer:
         self._s += "    " * self._indentation
 
 def beautify_template(s):
-  p = Printer()
+  printer = Printer()
   skip_leading_space = True
   for c in s:
     if c == ' ' and skip_leading_space:
       continue
     elif c in "<[{(":
-        p(c)
-        p.indent()
+        printer(c)
+        printer.indent()
     elif c in ')}]>':
-        p.unindent()
-        p(c)
+        printer.unindent()
+        printer(c)
     elif c in ",;":
-        p(c)
+        printer(c)
         skip_leading_space = True
-        p.newline()
+        printer.newline()
         continue
     else:
-        p(c)
+        printer(c)
     skip_leading_space = False
-  return str(p)
+  return str(printer)
 
 def main():
     while True:
