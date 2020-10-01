@@ -6,5 +6,6 @@ then
   shift
   "$@"
 else
-  die "$1 is not a directory or it doesn't exist"
+  echo "$1 is not a directory or it doesn't exist"
+  exit 1
 fi

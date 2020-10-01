@@ -1,20 +1,7 @@
-export PATH=${PATH}:${MEGASHELL_PATH}/bin
-export RMAKE=${MEGASHELL_PATH}
-
-# Bash completion
-source ${MEGASHELL_PATH}/bash_completion/*
-
-# Functions
-function die() {
-  echo $*
-  exit 1
-}
-export -f die
-
-# serach on google
-function g() {
-  open "https://www.google.it/search?q=$*"
-}
+here=$(dirname $(realpath $BASH_SOURCE))
+export PATH=${PATH}:${here}/bin
+source ${here}/bash_completion/*
+unset here
 
 # execute git command and discard stderr
 function __git() {
@@ -34,7 +21,8 @@ function __git_status() {
 # Bash settings
 export EDITOR=vim
 set -o vi
-PS1="\!) \A ${MEGASHELL_HOSTNAME}\w:\$(__git_branch)\$(__git_status)> "
+# PS1="\!) \A ${MEGASHELL_HOSTNAME}\w:\$(__git_branch)\$(__git_status)> "
+PS1="\[\033[1;33m\]\W\[\033[0m\] [\$(__git_branch)\$(__git_status)] \[\033[1;37m\]$\[\033[0m\] "
 
 # Aliases
 alias c="clear"
@@ -42,7 +30,10 @@ alias h="history 10"
 alias graph="git log --oneline --graph --decorate --date-order --all"
 alias pygrep='grep --color -rn --include="*.py"'
 alias cppgrep='grep --color -rn --include="*.h" --include="*.c" --include="*.cpp" --include="*.hpp" --include="*.cxx" --include="*.hxx" --include="*.ipp" --include="*.inl"'
+alias csgrep='grep --color -rn --include="*.cs"'
 alias javagrep='grep --color -rn --include="*.java"'
-which apt-get > /dev/null 2>&1 \
-  && alias get='sudo apt-get install --yes' \
-  && alias search='apt-cache search'
+if which apt-get > /dev/null 2>&1
+then
+    alias get='sudo apt-get install --yes'
+    alias search='apt-cache search'
+fi

@@ -7,7 +7,7 @@ do
 case $1 in
   k|blk|black) color=30 && shift && break;;
   r|red) color=31 && shift && break;;
-  g|grn|gree) color=32 && shift && break;;
+  g|grn|green) color=32 && shift && break;;
   y|ylw|yellow) color=33 && shift && break;;
   b|blu|blue) color=34 && shift && break;;
   p|purple) color=35 && shift && break;;

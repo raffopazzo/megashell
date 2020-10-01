@@ -2,7 +2,8 @@
 
 if [ $# -lt 1 ]
 then
-  die "Missing field number"
+  echo "Missing field number"
+  exit 1
 fi
 
 fields=("\$$1")

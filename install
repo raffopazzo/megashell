@@ -1,13 +1,21 @@
 #!/bin/bash
 
 function install_bashrc() {
-  BASHRC=${HOME}/.bashrc
-  grep "### Megashell" ${BASHRC} -q > /dev/null || cat >> ${BASHRC} << END
-### Megashell
-MEGASHELL_PATH=$(pwd)
-MEGASHELL_HOSTNAME="${MEGASHELL_HOSTNAME-\h:}"
-source \${MEGASHELL_PATH}/bashrc
-END
+#   BASHRC=${HOME}/.bashrc
+#   grep "### Megashell" ${BASHRC} -q > /dev/null || cat >> ${BASHRC} << END
+# ### Megashell
+# MEGASHELL_PATH=$(pwd)
+# MEGASHELL_HOSTNAME="${MEGASHELL_HOSTNAME-\h:}"
+# source \${MEGASHELL_PATH}/bashrc
+# END
+  local here=$(dirname $(realpath $0))
+  local magic="source $here/bashrc"
+  if egrep "^$magic$" -q ${HOME}/.bashrc > /dev/null
+  then
+    echo "megashell already installed"
+    exit 1
+  fi
+  echo "$magic" >> ${HOME}/.bashrc
 }
 
 function __ln() {
@@ -18,7 +26,8 @@ function __ln() {
   then
     ln -s $1 $2
   else
-    die Cannot override $2, which is not a link
+    echo "Cannot override $2, which is not a link"
+    exit 1
   fi
 }
 
@@ -36,13 +45,13 @@ function install_vimrc() {
   fi
 }
 
-while [ $# -gt 0 ]
-do
-case $1 in
-  --no-hostname) MEGASHELL_HOSTNAME="" ;;
-esac
-shift
-done
+# while [ $# -gt 0 ]
+# do
+# case $1 in
+#   --no-hostname) MEGASHELL_HOSTNAME="" ;;
+# esac
+# shift
+# done
 
 install_bashrc
 install_vimrc
