@@ -27,7 +27,10 @@ PS1="\[\033[1;33m\]\W\[\033[0m\] [\$(__git_branch)\$(__git_status)] \[\033[1;37m
 # Aliases
 alias c="clear"
 alias h="history 10"
+
 alias graph="git log --oneline --graph --decorate --date-order --all"
+alias pull-prune="git pull && git pull --prune"
+
 alias pygrep='grep --color -rn --include="*.py"'
 alias cppgrep='grep --color -rn --include="*.h" --include="*.c" --include="*.cpp" --include="*.hpp" --include="*.cxx" --include="*.hxx" --include="*.ipp" --include="*.inl"'
 alias csgrep='grep --color -rn --include="*.cs"'
