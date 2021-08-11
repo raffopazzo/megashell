@@ -27,6 +27,8 @@ PS1="\[\033[1;33m\]\W\[\033[0m\] [\$(__git_branch)\$(__git_status)] \[\033[1;37m
 # Aliases
 alias c="clear"
 alias h="history 10"
+alias uppercase="tr '[a-z]' '[A-Z]'"
+alias lowercase="tr '[A-Z]' '[a-z]'"
 
 alias graph="git log --oneline --graph --decorate --date-order --all"
 alias pull-prune="git pull && git pull --prune"
