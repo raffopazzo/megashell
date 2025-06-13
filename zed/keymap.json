@@ -1,0 +1,44 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "bindings": {
+      "alt-j": "pane::ActivateNextItem",
+      "alt-k": "pane::ActivatePreviousItem",
+      "ctrl-o": "file_finder::Toggle"
+    }
+  },
+  {
+    "context": "Workspace",
+    "bindings": {}
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-g d": "git::Diff",
+      "alt-.": "editor::ShowCompletions",
+      "ctrl-.": "editor::GoToDefinition",
+      "ctrl-,": "pane::GoBack",
+      "ctrl-space": "editor::AcceptPartialEditPrediction",
+      "ctrl-k t": [
+        "task::Spawn",
+        { "task_name": "dep0::typecheck", "reveal_target": "center" }
+      ],
+      "ctrl-k L": [
+        "task::Spawn",
+        { "task_name": "dep0::llvm", "reveal_target": "center" }
+      ]
+    }
+  },
+  {
+    "context": "Editor && edit_prediction || (Editor && edit_prediction_conflict)",
+    "bindings": {
+      "ctrl-space": "editor::AcceptPartialEditPrediction"
+    }
+  }
+]
